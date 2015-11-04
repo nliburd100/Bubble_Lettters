@@ -1,0 +1,14 @@
+import java.util.*;
+public class Dank {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Gimme a phrase, I'll bubble it \n I won't convert punctuations :(");
+		String inputString = scan.nextLine();
+		
+		CharMapper CharMap = new CharMapper();
+		String[][] map = CharMap.map();
+
+	}
+
+}
