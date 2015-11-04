@@ -1,37 +1,40 @@
 import java.util.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class MainBubble {
 	public static void main(String[] args) {
-		Rectangle r = new Rectangle(800, 800);
-		Dimension d = new Dimension(800, 800);
-		Frame frame = new Frame("Bubble Letter Converter");
-		frame.setResizable(false);
-		frame.setMaximizedBounds(r);
-		frame.setMinimumSize(d);
-		frame.setVisible(true);
 		//initializes a bunch of variables
+		InputFrame newFrame = new InputFrame();
 		Scanner scan = new Scanner(System.in);
 		String inputString;
 		char[] charASCII;
 		final int length;
+		int spacing;
 		
 		//takes in lowercase version of the input string
-		System.out.println("Please enter a string: ");
-		CharMapper charMap = new CharMapper("Bubble Letters");
+		synchronized(newFrame){
+            try{
+                newFrame.wait();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+		
+		CharMapper charMap = new CharMapper(newFrame.getInput(2));
+		spacing = charMap.getSpacing();
 		String[][] map = charMap.map();
-		inputString = scan.nextLine().toLowerCase();
+		inputString = newFrame.getInput(1).toLowerCase();
 		
 		//determines string length, and creates int array based on length
 		length = inputString.length();
 		charASCII = new char[length];
 		
-		//assigns a int array the character values of each character
+		//assigns a integer array the character values of each character
 		for (int i = 0; i < length; i++) {
 			charASCII[i] = inputString.charAt(i);
 		}
 		//prints bubble letter lines, 6 times, for each layer
-		for (int l = 0; l < 6; l++) {
+		for (int l = 0; l < spacing; l++) {
 			for (int c = 0; c < length; c++) {
 				//if the character is not a to b it's replaced by a space
 				if (charASCII[c]-97 <= 26 && charASCII[c]-97 >= 0) {
@@ -45,5 +48,6 @@ public class MainBubble {
 			System.out.println();
 		}
 		scan.close();
+	}
 	}
 }
