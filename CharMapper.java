@@ -7,15 +7,15 @@ public class CharMapper {
 	String[][] charMap = new String[6][26];
 	public int spacing;
 
-	public CharMapper(String fontType) {	
+	public CharMapper(String fontType) {
 		filename = fontType;
 		switch (fontType) {
 			case "Bubble Letters":
 				spacing = 6; break;
 			case "Graffiti":
-				spacing = 8; break;
+				spacing = 6; break;
 			default:
-				spacing = 1; break;
+				spacing = 6; break;
 		}
 	}
 	public int getSpacing() {
