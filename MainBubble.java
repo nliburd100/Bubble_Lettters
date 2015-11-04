@@ -1,10 +1,16 @@
 import java.util.*;
+import java.awt.*;
 
 public class MainBubble {
 	public static void main(String[] args) {
+		Rectangle r = new Rectangle(800, 800);
+		Dimension d = new Dimension(800, 800);
+		Frame frame = new Frame("Bubble Letter Converter");
+		frame.setResizable(false);
+		frame.setMaximizedBounds(r);
+		frame.setMinimumSize(d);
+		frame.setVisible(true);
 		//initializes a bunch of variables
-		CharMapper charMap = new CharMapper();
-		String[][] map = charMap.map();
 		Scanner scan = new Scanner(System.in);
 		String inputString;
 		char[] charASCII;
@@ -12,8 +18,9 @@ public class MainBubble {
 		
 		//takes in lowercase version of the input string
 		System.out.println("Please enter a string: ");
+		CharMapper charMap = new CharMapper("Bubble Letters");
+		String[][] map = charMap.map();
 		inputString = scan.nextLine().toLowerCase();
-		
 		
 		//determines string length, and creates int array based on length
 		length = inputString.length();
@@ -27,12 +34,12 @@ public class MainBubble {
 		for (int l = 0; l < 6; l++) {
 			for (int c = 0; c < length; c++) {
 				//if the character is not a to b it's replaced by a space
-				if (charASCII[c]-97 >= 25 || charASCII[c]-97 <= 0) {
-					System.out.print("    ");
-					c++;
-				}
+				if (charASCII[c]-97 <= 26 && charASCII[c]-97 >= 0) {
+					System.out.print(map[l][charASCII[c]-97]);
+				} else {
 				//prints the pieces of the letters
-				System.out.print(map[l][charASCII[c]-97]);
+				System.out.print("    ");
+				}
 			}
 			//creates a new line each time the line is complete
 			System.out.println();
