@@ -1,46 +1,72 @@
 import java.awt.Dimension;
-import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 
-public class InputFrame extends JFrame {
+public class InputFrame extends JFrame implements ActionListener {
+	private static final long serialVersiomnUID = -6888861450765530843L;
+	boolean bool = false;
 	public JFrame f = new JFrame("Bubble Letter Converter");
-	String[] fontList = { "Bubble Letters", "Sample Text", "Lmao", "Font2", "Font4" };
+	Container c = new Container();
+	String[] fontList = { "Graffiti", "Sample Text", "Lmao", "Font2", "Font4" };
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	JComboBox fontSelection = new JComboBox(fontList);
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	JTextField inputField = new JTextField("Enter any text here");
+	JLabel outputField = new JLabel();
+	JButton convert = new JButton("Convert");
 	
 	public InputFrame() {
+		initialize();
+	}
+	
+	private void initialize() {
 		Dimension d = new Dimension(600, 400);
-		Dimension sd = new Dimension(80, 40);
-		Container c = new Container();
-		c.setSize(sd);	
+		Dimension sd= new Dimension (100, 100);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(d);
 		fontSelection.setSelectedIndex(0);
-		fontSelection.setMaximumSize(sd);
-		c.add(fontSelection, BorderLayout.CENTER);
+		f.setSize(d);
+		outputField.setSize(sd);
+		convert.addActionListener(this);
 		
-		f.getContentPane().add(c, BorderLayout.CENTER);
-		f.setResizable(false);
+		f.add(fontSelection, BorderLayout.CENTER);
+		f.add(inputField, BorderLayout.LINE_START);
+		f.add(outputField, BorderLayout.PAGE_END);
+		f.add(convert, BorderLayout.LINE_END);
+		
 		f.setVisible(true);
+		f.setResizable(false);
 	}
 	public String getInput(int v) {
 		String input;
 		switch (v) {
 			case 1:
-			input = null;
+			input = inputField.getText();
 			break;
 			case 2:
-			input = null;
+			input = (String)fontSelection.getSelectedItem();
 			break;
 			default:
 			input = null;
 			break;
 		}
 		return input;
+	}
+	public void actionPerformed(ActionEvent cp) {
+		String action = cp.getActionCommand();
+		if (action.equals("Convert")) {
+			bool = true;
+		}
+	}
+	public boolean go() {
+		return bool;
+	}
+	public static String convertToMultiline(String orig) {
+	    return "<html>" + orig.replaceAll("\n", "<br>");
+	}
+	public void setLabelText(String formatted) {
+		outputField.setText(convertToMultiline("<html><pre>" + formatted + "</pre><html>"));
+		
 	}
 }
 
