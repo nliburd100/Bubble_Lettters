@@ -1,14 +1,19 @@
+
 import java.io.File;
 import java.util.Scanner;
 
 public class CharMapper {
-	File file = new File("C:\\Users\\Administrator\\Workspace\\Bubble_Lettters\\src\\CharMap.txt");
+	String filename;
 	String[][] charMap = new String[6][26];
-	
-	public CharMapper() {	
+
+	public CharMapper(String fontType) {	
+		filename = fontType;
 	}
-	
+
 	public String[][] map() {
+		String workingDirectory = System.getProperty("user.dir");
+		String absoluteFilePath = workingDirectory + File.separator + "src" + File.separator + filename + ".txt";
+		File file = new File(absoluteFilePath);
 		try {
 			int character = 0;
 			int line = 0;
@@ -22,9 +27,9 @@ public class CharMapper {
 			}
 			scan.close();
 		}
-			catch (Exception ex) {
-				ex.printStackTrace();
-			}
+		catch (Exception ex) {
+		ex.printStackTrace();
+		}
 		return charMap;
 	}
 } 
